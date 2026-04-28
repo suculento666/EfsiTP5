@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import './App.css'
-import MovieCard from './components/MovieCard'
-import MovieDetails from './components/MovieDetails'
-import SearchBar from './components/SearchBar'
-import { fetchMovies, fetchMovieDetails } from './api/movies'
-import api from './services/api'
+
 
 
 function App() {
