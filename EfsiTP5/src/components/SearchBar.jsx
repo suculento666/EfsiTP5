@@ -1,0 +1,1 @@
+<SearchBar onSearch={handleSearch} />

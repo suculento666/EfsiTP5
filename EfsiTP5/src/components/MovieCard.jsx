@@ -1,0 +1,1 @@
+<img src={movie.Poster !== "N/A" ? movie.Poster : "placeholder.jpg"} />
