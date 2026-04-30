@@ -1,184 +1,233 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root{
+  --bg:#070707;
+  --surface:#0f0f12;
+  --card:#0f1418;
+  --muted:#9aa4b2;
+  --text:#e6eef6;
+  --accent:#e50914; /* Netflix-like */
+  --glass: rgba(255,255,255,0.03);
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+/* Global */
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,var(--bg) 0%, #050505 100%);
+  color:var(--text);
+  font-family: Inter, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-#center {
+.app-container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* Header */
+.app-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:14px 0 22px;border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.logo{font-weight:800;font-size:20px;color:var(--accent);letter-spacing:1px}
+.brand-sub{color:var(--muted);font-size:13px;margin-left:8px}
+
+/* Search */
+input[aria-label="Buscar"]{
+  background:var(--glass);border:1px solid rgba(255,255,255,0.04);
+  color:var(--text);padding:10px 12px;border-radius:6px;min-width:220px;
+}
+select{background:transparent;color:var(--text);border-radius:6px}
+form button{background:var(--accent);border:none;color:white;padding:8px 12px;border-radius:6px;cursor:pointer}
+form button[type="button"]{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+/* Movie grid */
+.movie-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;padding:20px 0}
+
+.movie-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease;
+  border:1px solid rgba(255,255,255,0.03);
+}
+.movie-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
+
+.poster-wrap{position:relative;width:100%;padding-top:140%;overflow:hidden}
+.poster-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .28s ease}
+.movie-card:hover .poster-wrap img{transform:scale(1.07)}
+
+.card-info{padding:10px 12px}
+.card-info h3{font-size:15px;margin:0 0 6px;color:#fff;line-height:1.2}
+.card-info .meta{color:var(--muted);font-size:13px;margin:0}
+
+/* Empty / messages */
+p{color:var(--muted)}
+
+/* Movie detail inside modal */
+.movie-detail{color:var(--text);display:block}
+.movie-detail h2{margin-top:0;margin-bottom:8px;font-size:22px}
+.movie-detail img{max-width:220px;float:left;margin-right:16px;border-radius:6px}
+.movie-detail p{color:var(--muted)}
+
+/* Responsive tweaks */
+@media (max-width:720px){
+  .poster-wrap{padding-top:150%}
+  .movie-detail img{float:none;display:block;margin:0 0 12px;max-width:100%}
+  .app-container{padding:12px}
+}
+
+/* ensure modal overlay sits above everything */
+.modal-overlay{z-index:12000}
+
+/* small utility */
+.center{display:flex;align-items:center;justify-content:center}
+
+
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #141414;
+  color: #fff;
+}
+
+.search-bar {
   display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  gap: 10px;
+  padding: 15px 20px;
+  background: #0f0f0f;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+.search-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #1c1c1c;
+  color: white;
+  outline: none;
 }
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+.search-bar input::placeholder {
+  color: #777;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+.search-bar select {
+  padding: 12px;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: white;
+  border: 1px solid #333;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.search-bar button {
+  padding: 12px 16px;
+  border: none;
+  background: #e50914;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
-.ticks {
-  position: relative;
+.search-bar button:hover {
+  background: #ff1f1f;
+}
+/* =========================
+   MOVIE LIST (GRID)
+========================= */
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* =========================
+   MOVIE CARD
+========================= */
+.movie-card {
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.movie-card img {
   width: 100%;
+  border-radius: 10px;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.movie-card:hover {
+  transform: scale(1.07);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+/* INFO debajo del poster */
+.movie-info {
+  margin-top: 8px;
+}
+
+.movie-info h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.movie-info p {
+  font-size: 12px;
+  color: #aaa;
+  margin: 2px 0;
+}
+
+/* =========================
+   MOVIE DETAIL (dentro modal)
+========================= */
+.movie-detail img {
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.movie-detail h2 {
+  margin-top: 0;
+}
+
+.movie-detail p {
+  margin: 5px 0;
+  color: #ddd;
+}
+
+/* =========================
+   LOADER
+========================= */
+.loader {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+}
+
+/* =========================
+   ERROR
+========================= */
+.error {
+  color: #ff4d4d;
+  text-align: center;
+  padding: 10px;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
