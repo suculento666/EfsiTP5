@@ -1,6 +1,6 @@
 import './Modal.css'
 
-export default function Modal({ children, onClose }) {
+export default function Modal({ children, onClose }) { // 
   return (
     <div className="modal-overlay" onClick={onClose}> {/* Cierra el modal al hacer clic fuera del contenido */ }
       <div 

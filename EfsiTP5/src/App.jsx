@@ -15,25 +15,25 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleSearch = (query) => {
-    setLoading(true)
-    setError(null)
+  const handleSearch = (query, type) => {
+  setLoading(true)
+  setError(null)
 
-    searchMovies(query)
-      .then((res) => {
-        if (res.data.Response === "False") {
-          setMovies([])
-        } else {
-          setMovies(res.data.Search)
-        }
-      })
-      .catch(() => {
-        setError("Error al buscar")
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  };
+  searchMovies(query, type) // Llama a la función searchMovies con la query y el tipo seleccionado para realizar la búsqueda de películas.
+    .then((res) => {
+      if (res.data.Response === "False") {
+        setMovies([])
+      } else {
+        setMovies(res.data.Search)
+      }
+    })
+    .catch(() => {
+      setError("Error al buscar")
+    })
+    .finally(() => {
+      setLoading(false)
+    })
+}
 
   const handleSelect = (id) => {
     setLoading(true)
